@@ -8,4 +8,12 @@ public class Wheel {
 		this.brand = brand;
 		this.diameter = diameter;
 	}
+
+	public double getDiameter() {
+		return diameter;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
 }

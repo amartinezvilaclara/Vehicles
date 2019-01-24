@@ -1,30 +1,29 @@
 package com.vehicles.project;
 
-import java.util.List;
-
 public class Car extends Vehicle {
 
 	public Car(String plate, String brand, String color) {
 		super(plate, brand, color);
 	}
 
-	public void addWheels(List<Wheel> frontWheels, List<Wheel> backWheels) throws Exception {
-		addTwoWheels(frontWheels);
-		addTwoWheels(backWheels);
+	public void addWheels(Wheel[] frontWheels, Wheel[] backWheels) throws Exception {
+		addTwoWheels(frontWheels, WheelPosition.FRONT);
+		addTwoWheels(backWheels, WheelPosition.REAR);
 	}
 
-	public void addTwoWheels(List<Wheel> wheels) throws Exception {
-		if (wheels.size() != 2)
-			throw new Exception();
+	public void addTwoWheels(Wheel[] wheels, WheelPosition position) throws Exception {
+		if (wheels.length != 2) throw new Exception();
 
-		Wheel rightWheel = wheels.get(0);
-		Wheel leftWheel = wheels.get(1);
+		if (!wheels[0].equals(wheels[1])) throw new Exception();
 
-		if (!rightWheel.equals(leftWheel))
-			throw new Exception();
-
-		this.wheels.add(leftWheel);
-		this.wheels.add(rightWheel);
+		if(position == WheelPosition.FRONT) {
+			super.addWheel(wheels[0],WheelPosition.FRONT_LEFT );
+			super.addWheel(wheels[1],WheelPosition.FRONT_RIGHT);
+		}
+		else{
+			super.addWheel(wheels[0],WheelPosition.REAR_LEFT );
+			super.addWheel(wheels[1],WheelPosition.REAR_RIGHT);
+		}
 	}
 
 }

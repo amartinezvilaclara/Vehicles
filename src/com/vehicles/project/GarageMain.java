@@ -27,6 +27,15 @@ public class GarageMain {
         return new Car(plate, brand, color);
     }
 
+    public static String requestStringFromCommandLine(){
+
+        Scanner sc= new Scanner(System.in);
+        String s;
+        s = sc.nextLine();
+        return s;
+
+    }
+
     private static void InitializeCar(Car v) {
         System.out.println("the car needs front wheels...");
         Wheel[] frontWheels = requestWheelInfoAndInitialize(2);
@@ -59,15 +68,6 @@ public class GarageMain {
         double d = requestDoubleFromCommandLine();
         wheel = new Wheel(brand,d);
         return wheel;
-
-    }
-
-    public static String requestStringFromCommandLine(){
-
-        Scanner sc= new Scanner(System.in);
-        String s;
-        s = sc.nextLine();
-        return s;
 
     }
 

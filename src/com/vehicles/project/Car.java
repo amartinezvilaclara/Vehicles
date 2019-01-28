@@ -17,7 +17,7 @@ public class Car extends Vehicle {
 
 	public void addTwoWheels(Wheel[] wheels, int WheelPosition) throws Exception {
 		if (wheels.length != 2) throw new Exception();
-		if (wheels[0] == wheels[1]) throw new Exception();
+		if ((wheels[0] == wheels[1])||(wheels[0].getDiameter() != wheels[1].getDiameter())) throw new Exception();
 		for(int i=0; i<2;i++){
 			this.wheels[WheelPosition + i]= wheels[i];
 		}

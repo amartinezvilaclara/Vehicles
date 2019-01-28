@@ -2,28 +2,24 @@ package com.vehicles.project;
 
 public class Car extends Vehicle {
 
+	public static final int FRONT = 0;
+	public static final int BACK = 2;
+
 	public Car(String plate, String brand, String color) {
 		super(plate, brand, color);
+		wheels= new Wheel[4];
 	}
 
 	public void addWheels(Wheel[] frontWheels, Wheel[] backWheels) throws Exception {
-		addTwoWheels(frontWheels, WheelPosition.FRONT);
-		addTwoWheels(backWheels, WheelPosition.REAR);
+		addTwoWheels(frontWheels, Car.FRONT);
+		addTwoWheels(backWheels, Car.BACK);
 	}
 
-	public void addTwoWheels(Wheel[] wheels, WheelPosition position) throws Exception {
+	public void addTwoWheels(Wheel[] wheels, int WheelPosition) throws Exception {
 		if (wheels.length != 2) throw new Exception();
-
 		if (wheels[0] == wheels[1]) throw new Exception();
-
-		if(position == WheelPosition.FRONT) {
-			super.addWheel(wheels[0],WheelPosition.FRONT_LEFT );
-			super.addWheel(wheels[1],WheelPosition.FRONT_RIGHT);
-		}
-		else{
-			super.addWheel(wheels[0],WheelPosition.REAR_LEFT );
-			super.addWheel(wheels[1],WheelPosition.REAR_RIGHT);
+		for(int i=0; i<2;i++){
+			this.wheels[WheelPosition + i]= wheels[i];
 		}
 	}
-
 }

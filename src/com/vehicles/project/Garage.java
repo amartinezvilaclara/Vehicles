@@ -7,22 +7,14 @@ public class Garage {
     public static void main(String[] args){
 
         Vehicle v;
-        Wheel wheel;
-
         v = requestVehicleInformation();
 
         if(v instanceof Car) {
             System.out.println("the car needs front wheels...");
-            wheel = requestWheelInformation();
-            Wheel[] frontWheels = new Wheel[2];
-            frontWheels[0]= new Wheel(wheel.getBrand(),wheel.getDiameter());
-            frontWheels[1]= new Wheel(wheel.getBrand(),wheel.getDiameter());
+            Wheel[] frontWheels = requestWheelInfoAndInitialize(2);
             System.out.println("the car needs back wheels...");
-            wheel = requestWheelInformation();
-            Wheel[] backWheels = new Wheel[2];
-            backWheels[0]= new Wheel(wheel.getBrand(),wheel.getDiameter());
-            backWheels[1]= new Wheel(wheel.getBrand(),wheel.getDiameter());
-           try{
+            Wheel[] backWheels = requestWheelInfoAndInitialize(2);
+            try{
                ((Car) v).addWheels(frontWheels,backWheels);
            }
            catch (Exception e) {
@@ -31,6 +23,17 @@ public class Garage {
         }
 
     }
+
+    private static Wheel[] requestWheelInfoAndInitialize(int numOfWheels) {
+        Wheel wheel;
+        wheel = requestWheelInformation();
+        Wheel[] wheels = new Wheel[numOfWheels];
+        for(int i=0; i<numOfWheels; i++) {
+            wheels[i] = new Wheel(wheel.getBrand(), wheel.getDiameter());
+        }
+        return wheels;
+    }
+
 
     public static Vehicle requestVehicleInformation(){
 

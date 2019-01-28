@@ -9,7 +9,7 @@ public class GarageMain {
         Vehicle v = requestVehicleInformation();
 
         if(v instanceof Car) {
-            InitializeCar((Car) v);
+            initializeCar((Car) v);
         }
         System.out.println("Car correctly initialized. Exiting now...");
 
@@ -36,7 +36,7 @@ public class GarageMain {
 
     }
 
-    private static void InitializeCar(Car v) {
+    private static void initializeCar(Car v) {
         System.out.println("the car needs front wheels...");
         Wheel[] frontWheels = requestWheelInfoAndInitialize(2);
         System.out.println("the car needs back wheels...");

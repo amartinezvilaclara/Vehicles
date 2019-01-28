@@ -14,5 +14,6 @@
 \.idea/workspace\.xml
 
 bin/*
+out/*
 
 VehiclesProject\.iml

@@ -21,6 +21,7 @@ public class Garage {
                System.out.println("There has been an error with the wheels.");
            }
         }
+        System.out.println("Car correctly initialized. Exiting now...");
 
     }
 

@@ -14,7 +14,7 @@ public class Car extends Vehicle {
 	public void addTwoWheels(Wheel[] wheels, WheelPosition position) throws Exception {
 		if (wheels.length != 2) throw new Exception();
 
-		if (!wheels[0].equals(wheels[1])) throw new Exception();
+		if (wheels[0] == wheels[1]) throw new Exception();
 
 		if(position == WheelPosition.FRONT) {
 			super.addWheel(wheels[0],WheelPosition.FRONT_LEFT );

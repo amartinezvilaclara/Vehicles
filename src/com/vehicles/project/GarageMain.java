@@ -17,13 +17,12 @@ public class GarageMain {
 
     public static Vehicle requestVehicleInformation(){
 
+
         System.out.println("Enter the vehicle brand: ");
         String brand = requestStringFromCommandLine();
         System.out.println("Enter the vehicle color: ");
         String color = requestStringFromCommandLine();
-        System.out.println("Enter the vehicle number plate: ");
-        String plate = requestStringFromCommandLine();
-
+        String plate = requestPlate();
         return new Car(plate, brand, color);
     }
 
@@ -34,6 +33,32 @@ public class GarageMain {
         s = sc.nextLine();
         return s;
 
+    }
+
+    private static String requestPlate() {
+        String plate = "0000 AAA";
+        boolean acquired = false;
+        while(!acquired) {
+            System.out.println("Enter the vehicle number plate: ");
+            plate = requestStringFromCommandLine();
+            if(isPlateFormatCorrect(plate)) acquired = true;
+            else System.out.println("The format of the number plate is not correct. Please enter the plate again: ");
+        }
+        return plate;
+    }
+
+    private static boolean isPlateFormatCorrect(String plate){
+        plate.trim();
+        boolean correctFormat = true;
+        if(plate.length() < 7 || (plate.length() > 8)) correctFormat = false;
+        for(int i =0; i<plate.length(); i++){
+            if(i<4) correctFormat= correctFormat && Character.isDigit(plate.charAt(i));
+            else{
+                if(i == 4) correctFormat= correctFormat && Character.isSpaceChar(plate.charAt(i));
+                else correctFormat= correctFormat && Character.isUpperCase(plate.charAt(i));
+            }
+        }
+        return correctFormat;
     }
 
     private static void initializeCar(Car v) {
@@ -65,10 +90,21 @@ public class GarageMain {
         System.out.println("Enter the wheel brand: ");
         String brand = requestStringFromCommandLine();
         System.out.println("Enter the wheel diameter: ");
-        double d = requestDoubleFromCommandLine();
+        double d = requestWheelDiameter();
         wheel = new Wheel(brand,d);
         return wheel;
 
+    }
+
+    private static double requestWheelDiameter() {
+        boolean acquired = false;
+        double d = 0;
+        while (!acquired) {
+            d = requestDoubleFromCommandLine();
+            if((d >= Wheel.MINIMUM_DIAMETER)&&(d <= Wheel.MAXIMUM_DIAMETER)) acquired = true;
+            else System.out.println("The given diameter of the wheel is not valid. Please try a new diameter: ");
+        }
+        return d;
     }
 
     public static double requestDoubleFromCommandLine(){

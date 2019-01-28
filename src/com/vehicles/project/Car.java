@@ -1,7 +1,7 @@
 package com.vehicles.project;
 
 public class Car extends Vehicle {
-	
+
 	public static final int FRONT = 0;
 	public static final int BACK = 2;
 	public static final int RIGHT = 0;

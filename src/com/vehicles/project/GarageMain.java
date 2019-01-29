@@ -8,11 +8,10 @@ public class GarageMain {
 
         try{
             Vehicle v = requestVehicleInformation();
-        initializeVehicle(v);
-
-        if(v instanceof Car) System.out.println("Car correctly initialized");
-        else System.out.println("Bike correctly initialized");
-        System.out.println("Exiting now...");
+            initializeVehicle(v);
+            if(v instanceof Bike) System.out.println("Bike correctly initialized");
+            else System.out.println("Car correctly initialized");
+            System.out.println("Exiting now...");
         }
         catch (Exception e){
             System. out.println("Error initializing the vehicle. Incorrect data entry");
@@ -55,19 +54,16 @@ public class GarageMain {
     }
 
     private static void initializeVehicle(Vehicle v) throws Exception {
+
         int numOfWheels = 2;
         if(v instanceof Bike) numOfWheels =1;
         System.out.println("the vehicle needs front wheels...");
         Wheel[] frontWheels = requestWheelInfoAndInitialize(numOfWheels);
         System.out.println("the vehicle needs back wheels...");
         Wheel[] backWheels = requestWheelInfoAndInitialize(numOfWheels);
-        try{
-            if(v instanceof Bike) ((Bike) v).addWheels(frontWheels, backWheels);
-            else ((Car) v).addWheels(frontWheels,backWheels);
-        }
-        catch (Exception e) {
-            System.out.println("There has been an error with the wheels.");
-        }
+        if(v instanceof Bike) ((Bike) v).addWheels(frontWheels, backWheels);
+        else ((Car) v).addWheels(frontWheels,backWheels);
+
     }
 
     private static Wheel[] requestWheelInfoAndInitialize(int numOfWheels) throws Exception {

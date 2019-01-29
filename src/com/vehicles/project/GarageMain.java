@@ -7,23 +7,37 @@ public class GarageMain {
     public static void main(String[] args){
 
         Vehicle v = requestVehicleInformation();
+        initializeVehicle(v);
 
-        if(v instanceof Car) {
-            initializeCar((Car) v);
-        }
-        System.out.println("Car correctly initialized. Exiting now...");
+        if(v instanceof Car) System.out.println("Car correctly initialized");
+        else System.out.println("Bike correctly initialized");
+        System.out.println("Exiting now...");
 
     }
 
     public static Vehicle requestVehicleInformation(){
 
-
+        char option = requestAndVerifyVehicleOption();
         System.out.println("Enter the vehicle brand: ");
         String brand = requestStringFromCommandLine();
         System.out.println("Enter the vehicle color: ");
         String color = requestStringFromCommandLine();
-        String plate = requestPlate();
-        return new Car(plate, brand, color);
+        String plate = requestAndVerifyPlate();
+        if (option == 'b') return new Bike(plate, brand, color);
+        else return new Car(plate, brand, color);
+    }
+
+    public static char requestAndVerifyVehicleOption(){
+
+        boolean acquired = false;
+        String input="vehicle";
+        while(!acquired) {
+            System.out.println("Do yo want to create a car (c) or a motorbike (b)?");
+            input = requestStringFromCommandLine();
+            if((input.length() == 1)&&((input.charAt(0)=='c')||(input.charAt(0)=='b'))) acquired = true;
+            else System.out.println("Your input does not correspond to any vehicle. Please select again");
+        }
+        return input.charAt(0);
     }
 
     public static String requestStringFromCommandLine(){
@@ -35,14 +49,14 @@ public class GarageMain {
 
     }
 
-    private static String requestPlate() {
+    private static String requestAndVerifyPlate() {
         String plate = "0000 AAA";
         boolean acquired = false;
         while(!acquired) {
             System.out.println("Enter the vehicle number plate: ");
             plate = requestStringFromCommandLine();
             if(isPlateFormatCorrect(plate)) acquired = true;
-            else System.out.println("The format of the number plate is not correct. Please enter the plate again: ");
+            else System.out.println("The format of the number plate is not correct. Please enter it again.");
         }
         return plate;
     }
@@ -61,13 +75,16 @@ public class GarageMain {
         return correctFormat;
     }
 
-    private static void initializeCar(Car v) {
-        System.out.println("the car needs front wheels...");
-        Wheel[] frontWheels = requestWheelInfoAndInitialize(2);
-        System.out.println("the car needs back wheels...");
-        Wheel[] backWheels = requestWheelInfoAndInitialize(2);
+    private static void initializeVehicle(Vehicle v) {
+        int numOfWheels = 2;
+        if(v instanceof Bike) numOfWheels =1;
+        System.out.println("the vehicle needs front wheels...");
+        Wheel[] frontWheels = requestWheelInfoAndInitialize(numOfWheels);
+        System.out.println("the vehicle needs back wheels...");
+        Wheel[] backWheels = requestWheelInfoAndInitialize(numOfWheels);
         try{
-            v.addWheels(frontWheels,backWheels);
+            if(v instanceof Bike) ((Bike) v).addWheels(frontWheels, backWheels);
+            else ((Car) v).addWheels(frontWheels,backWheels);
         }
         catch (Exception e) {
             System.out.println("There has been an error with the wheels.");
@@ -89,37 +106,36 @@ public class GarageMain {
         Wheel wheel;
         System.out.println("Enter the wheel brand: ");
         String brand = requestStringFromCommandLine();
-        System.out.println("Enter the wheel diameter: ");
-        double d = requestWheelDiameter();
+        double d = requestAndVerifyWheelDiameter();
         wheel = new Wheel(brand,d);
         return wheel;
 
     }
 
-    private static double requestWheelDiameter() {
+    private static double requestAndVerifyWheelDiameter() {
         boolean acquired = false;
         double d = 0;
         while (!acquired) {
+            System.out.println("Enter the wheel diameter: ");
             d = requestDoubleFromCommandLine();
             if((d >= Wheel.MINIMUM_DIAMETER)&&(d <= Wheel.MAXIMUM_DIAMETER)) acquired = true;
-            else System.out.println("The given diameter of the wheel is not valid. Please try a new diameter: ");
+            else System.out.println("The given diameter of the wheel is not valid. Please try again.");
         }
         return d;
     }
 
-    public static double requestDoubleFromCommandLine(){
+    public static double requestDoubleFromCommandLine() {
 
         double dNumber = 0;
         String s;
         boolean acquired = false;
 
-        while (!acquired){
-            try{
+        while (!acquired) {
+            try {
                 s = requestStringFromCommandLine();
                 dNumber = Double.valueOf(s);
                 acquired = true;
-            }
-            catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("The entered value is not a valid number. Please, try again");
             }
         }

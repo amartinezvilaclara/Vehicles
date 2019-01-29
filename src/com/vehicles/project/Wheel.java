@@ -20,4 +20,8 @@ public class Wheel {
 	public String getBrand() {
 		return brand;
 	}
+
+	public static boolean isAValidWheelDiameter(double d) {
+		return (d >= Wheel.MINIMUM_DIAMETER)&&(d <= Wheel.MAXIMUM_DIAMETER);
+	}
 }

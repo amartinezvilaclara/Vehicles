@@ -36,29 +36,15 @@ public class GarageMain {
     }
 
     private static String requestPlate() {
-        String plate = "0000 AAA";
+        String plate="";
         boolean acquired = false;
         while(!acquired) {
             System.out.println("Enter the vehicle number plate: ");
             plate = requestStringFromCommandLine();
-            if(isPlateFormatCorrect(plate)) acquired = true;
+            if(Vehicle.isPlateFormatCorrect(plate)) acquired = true;
             else System.out.println("The format of the number plate is not correct. Please enter the plate again: ");
         }
         return plate;
-    }
-
-    private static boolean isPlateFormatCorrect(String plate){
-        plate.trim();
-        boolean correctFormat = true;
-        if(plate.length() < 7 || (plate.length() > 8)) correctFormat = false;
-        for(int i =0; i<plate.length(); i++){
-            if(i<4) correctFormat= correctFormat && Character.isDigit(plate.charAt(i));
-            else{
-                if(i == 4) correctFormat= correctFormat && Character.isSpaceChar(plate.charAt(i));
-                else correctFormat= correctFormat && Character.isUpperCase(plate.charAt(i));
-            }
-        }
-        return correctFormat;
     }
 
     private static void initializeCar(Car v) {
@@ -101,11 +87,12 @@ public class GarageMain {
         double d = 0;
         while (!acquired) {
             d = requestDoubleFromCommandLine();
-            if((d >= Wheel.MINIMUM_DIAMETER)&&(d <= Wheel.MAXIMUM_DIAMETER)) acquired = true;
+            if(Wheel.isAValidWheelDiameter(d)) acquired = true;
             else System.out.println("The given diameter of the wheel is not valid. Please try a new diameter: ");
         }
         return d;
     }
+
 
     public static double requestDoubleFromCommandLine(){
 

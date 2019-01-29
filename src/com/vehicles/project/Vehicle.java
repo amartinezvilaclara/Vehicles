@@ -1,5 +1,6 @@
 package com.vehicles.project;
 
+
 public abstract class Vehicle {
 
 	protected String plate;
@@ -7,13 +8,14 @@ public abstract class Vehicle {
 	protected String color;
 	protected Wheel[] wheels;
 
-	public Vehicle(String plate, String brand, String color) {
+	public Vehicle(String plate, String brand, String color) throws Exception{
+		if (!isPlateFormatCorrect(plate)) throw new Exception();
 		this.plate = plate;
 		this.brand = brand;
 		this.color = color;
 	}
 
-	public static boolean isPlateFormatCorrect(String plate){
+	private boolean isPlateFormatCorrect(String plate){
 		plate.trim();
 		boolean correctFormat = true;
 		if(plate.length() < 7 || (plate.length() > 8)) correctFormat = false;

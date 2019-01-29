@@ -6,23 +6,27 @@ public class GarageMain {
 
     public static void main(String[] args){
 
-        Vehicle v = requestVehicleInformation();
-
-        if(v instanceof Car) {
-            initializeCar((Car) v);
+        try{
+            Vehicle v = requestVehicleInformation();
+            if(v instanceof Car) {
+                initializeCar((Car) v);
+            }
+            System.out.println("Car correctly initialized. Exiting now...");
         }
-        System.out.println("Car correctly initialized. Exiting now...");
-
+        catch (Exception e){
+            System. out.println("Error initializing the vehicle. Incorrect data entry");
+        }
     }
 
-    public static Vehicle requestVehicleInformation(){
+    public static Vehicle requestVehicleInformation() throws Exception {
 
 
         System.out.println("Enter the vehicle brand: ");
         String brand = requestStringFromCommandLine();
         System.out.println("Enter the vehicle color: ");
         String color = requestStringFromCommandLine();
-        String plate = requestPlate();
+        System.out.println("Enter the vehicle number plate: ");
+        String plate = requestStringFromCommandLine();
         return new Car(plate, brand, color);
     }
 
@@ -35,32 +39,15 @@ public class GarageMain {
 
     }
 
-    private static String requestPlate() {
-        String plate="";
-        boolean acquired = false;
-        while(!acquired) {
-            System.out.println("Enter the vehicle number plate: ");
-            plate = requestStringFromCommandLine();
-            if(Vehicle.isPlateFormatCorrect(plate)) acquired = true;
-            else System.out.println("The format of the number plate is not correct. Please enter the plate again: ");
-        }
-        return plate;
-    }
-
-    private static void initializeCar(Car v) {
+    private static void initializeCar(Car v) throws Exception{
         System.out.println("the car needs front wheels...");
         Wheel[] frontWheels = requestWheelInfoAndInitialize(2);
         System.out.println("the car needs back wheels...");
         Wheel[] backWheels = requestWheelInfoAndInitialize(2);
-        try{
-            v.addWheels(frontWheels,backWheels);
-        }
-        catch (Exception e) {
-            System.out.println("There has been an error with the wheels.");
-        }
+        v.addWheels(frontWheels,backWheels);
     }
 
-    private static Wheel[] requestWheelInfoAndInitialize(int numOfWheels) {
+    private static Wheel[] requestWheelInfoAndInitialize(int numOfWheels) throws Exception {
 
         Wheel wheel = requestWheelInformation();
         Wheel[] wheels = new Wheel[numOfWheels];
@@ -70,29 +57,17 @@ public class GarageMain {
         return wheels;
     }
 
-    public static Wheel requestWheelInformation(){
+    public static Wheel requestWheelInformation() throws Exception{
 
         Wheel wheel;
         System.out.println("Enter the wheel brand: ");
         String brand = requestStringFromCommandLine();
         System.out.println("Enter the wheel diameter: ");
-        double d = requestWheelDiameter();
+        double d = requestDoubleFromCommandLine();
         wheel = new Wheel(brand,d);
         return wheel;
 
     }
-
-    private static double requestWheelDiameter() {
-        boolean acquired = false;
-        double d = 0;
-        while (!acquired) {
-            d = requestDoubleFromCommandLine();
-            if(Wheel.isAValidWheelDiameter(d)) acquired = true;
-            else System.out.println("The given diameter of the wheel is not valid. Please try a new diameter: ");
-        }
-        return d;
-    }
-
 
     public static double requestDoubleFromCommandLine(){
 

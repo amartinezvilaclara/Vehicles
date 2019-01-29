@@ -8,7 +8,8 @@ public class Wheel {
 	private String brand;
 	private double diameter;
 
-	public Wheel(String brand, double diameter) {
+	public Wheel(String brand, double diameter) throws Exception{
+		if(!isAValidWheelDiameter(diameter)) throw  new Exception();
 		this.brand = brand;
 		this.diameter = diameter;
 	}
@@ -21,7 +22,7 @@ public class Wheel {
 		return brand;
 	}
 
-	public static boolean isAValidWheelDiameter(double d) {
+	private boolean isAValidWheelDiameter(double d) {
 		return (d >= Wheel.MINIMUM_DIAMETER)&&(d <= Wheel.MAXIMUM_DIAMETER);
 	}
 }

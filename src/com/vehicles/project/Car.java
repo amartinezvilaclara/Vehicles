@@ -7,7 +7,7 @@ public class Car extends Vehicle {
 	public static final int RIGHT = 0;
 	public static final int LEFT = 1;
 
-	public Car(String plate, String brand, String color) {
+	public Car(String plate, String brand, String color) throws Exception {
 		super(plate, brand, color);
 		wheels= new Wheel[4];
 	}

@@ -10,13 +10,10 @@ public class Bike extends Vehicle {
 		wheels= new Wheel[2];
 	}
 
-	public void addWheels(Wheel[] frontWheels, Wheel[] backWheels) throws Exception {
+	public void addAllWheels(Wheel[] frontWheels, Wheel[] backWheels) throws Exception {
 		addWheel(frontWheels, Bike.FRONT);
 		addWheel(backWheels, Bike.BACK);
 	}
 
-	public void addWheel(Wheel[] wheels, int WheelPosition) throws Exception {
-		if (wheels.length != 1) throw new Exception();
-		this.wheels[WheelPosition]= wheels[0];
-	}
+
 }

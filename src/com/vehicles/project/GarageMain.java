@@ -61,9 +61,7 @@ public class GarageMain {
         Wheel[] frontWheels = requestWheelInfoAndInitialize(numOfWheels);
         System.out.println("the vehicle needs back wheels...");
         Wheel[] backWheels = requestWheelInfoAndInitialize(numOfWheels);
-        if(v instanceof Bike) ((Bike) v).addWheels(frontWheels, backWheels);
-        else ((Car) v).addWheels(frontWheels,backWheels);
-
+        v.addAllWheels(frontWheels,backWheels);
     }
 
     private static Wheel[] requestWheelInfoAndInitialize(int numOfWheels) throws Exception {

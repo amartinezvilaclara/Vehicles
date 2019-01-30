@@ -10,9 +10,15 @@ public class Bike extends Vehicle {
 		wheels= new Wheel[2];
 	}
 
+	@Override
 	public void addAllWheels(Wheel[] frontWheels, Wheel[] backWheels) throws Exception {
 		addWheel(frontWheels, Bike.FRONT);
 		addWheel(backWheels, Bike.BACK);
+	}
+
+	@Override
+	public int getNumberOfWheelsPerAxle() {
+		return 1;
 	}
 
 

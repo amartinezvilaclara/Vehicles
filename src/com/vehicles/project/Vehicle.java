@@ -17,12 +17,12 @@ public abstract class Vehicle {
 
 	public abstract void addAllWheels(Wheel[] frontWheels, Wheel[] backWheels) throws Exception;
 
-	public void addWheel(Wheel[] wheels, int WheelPosition) throws Exception {
+	protected void addWheel(Wheel[] wheels, int WheelPosition) throws Exception {
 		if (wheels.length != 1) throw new Exception();
 		this.wheels[WheelPosition]= wheels[0];
 	}
 
-	public void addTwoWheels(Wheel[] wheels, int WheelPosition) throws Exception {
+	protected void addTwoWheels(Wheel[] wheels, int WheelPosition) throws Exception {
 		if (wheels.length != 2) throw new Exception();
 		if ((wheels[0] == wheels[1])||(wheels[0].getDiameter() != wheels[1].getDiameter())) throw new Exception();
 		for(int i=0; i<2;i++){
@@ -43,5 +43,7 @@ public abstract class Vehicle {
 		}
 		return correctFormat;
 	}
+
+	public abstract int getNumberOfWheelsPerAxle();
 }
 

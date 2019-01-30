@@ -34,7 +34,7 @@ public class GarageMain {
     public static char requestAndVerifyVehicleOption(){
 
         boolean acquired = false;
-        String input="vehicle";
+        String input="";
         while(!acquired) {
             System.out.println("Do yo want to create a car (c) or a motorbike (b)?");
             input = requestStringFromCommandLine();
@@ -55,8 +55,7 @@ public class GarageMain {
 
     private static void initializeVehicle(Vehicle v) throws Exception {
 
-        int numOfWheels = 2;
-        if(v instanceof Bike) numOfWheels =1;
+        int numOfWheels = v.getNumberOfWheelsPerAxle();
         System.out.println("the vehicle needs front wheels...");
         Wheel[] frontWheels = requestWheelInfoAndInitialize(numOfWheels);
         System.out.println("the vehicle needs back wheels...");
